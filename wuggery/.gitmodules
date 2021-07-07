@@ -1,0 +1,3 @@
+[submodule "transducer"]
+	path = transducer
+	url = https://github.com/tpimentelms/neural-transducer
