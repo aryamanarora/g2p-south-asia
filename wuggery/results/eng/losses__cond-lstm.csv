@@ -1,2 +1,0 @@
-model,language,avg_len,train_loss,dev_loss,test_loss
-cond-lstm__nl_2-es_128-hs_128-d_0.3300,eng,8.901119257637008,2.451779331239524,2.489086006320969,2.4929125707734623
