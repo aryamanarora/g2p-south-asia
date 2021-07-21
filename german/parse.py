@@ -19,6 +19,8 @@ mapper = {
 cat = pywikibot.Category(site, "Category:German nouns")
 pages = cat.articles()
 
+data = []
+
 with tqdm(total=40883) as pbar, open('deu.tsv', 'w') as fout:
     for page in pagegenerators.PreloadingGenerator(pages, 100):
         title = page.title()
@@ -36,15 +38,16 @@ with tqdm(total=40883) as pbar, open('deu.tsv', 'w') as fout:
                 words = row.find_all('td')
 
                 if decl_type == 'pl':
-                    for word in words[1].find_all('a'):
+                    for word in words[1].find_all('span'):
                         all_words.append((f'{case};PL', word.text))
                 else:
-                    for word in words[2].find_all('a'):
+                    for word in words[2].find_all('span'):
                         all_words.append((f'{case};SG;{mapper[decl_type]}', word.text))
                     if len(words) > 3:
-                        for word in words[4].find_all('a'):
+                        for word in words[4].find_all('span'):
                             all_words.append((f'{case};PL;{mapper[decl_type]}', word.text))
 
             for i in all_words:
-                fout.write(f'{title}\t{i[1].rstrip()}\tN;{i[0]}\n')
+                data.append(f'{title}\t{i[1].rstrip()}\tN;{i[0]}\n')
         pbar.update(1)
+    fout.write(''.join(data))
