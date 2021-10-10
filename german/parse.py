@@ -22,7 +22,7 @@ pages = cat.articles()
 data = []
 
 with tqdm(total=40883) as pbar, open('deu.tsv', 'w') as fout:
-    for page in pagegenerators.PreloadingGenerator(pages, 100):
+    for page in pagegenerators.PreloadingGenerator(pages, 1000):
         title = page.title()
         # print(title)
         path = f'https://en.wiktionary.org/wiki/{page.title(as_url=True)}'
